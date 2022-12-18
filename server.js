@@ -1,7 +1,8 @@
 const express = require("express");
 const app= express();
 const mongoose= require("mongoose");
-const { model, Schema } = mongoose;
+
+const admin=require("./routes/admin");
 
 const db= 'mongodb+srv://utk123:Sz5XnB2CvOybszy6@cluster0.rqrlqgg.mongodb.net/shuffle-app-db?retryWrites=true&w=majority'
 mongoose.set("strictQuery", true);
@@ -16,23 +17,6 @@ mongoose.connect(db, {
 }).catch((err) => { 
     console.log(`no connection`);
 });
-
-
-
-const categorySchema = new Schema(
-    {name: {type: String,required: true}},
-
-    { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } }
-);
-const imageSchema = new Schema(
-    {name: {type: String,required: true},
-     category: { type: Array, required: true },
-     likenumber: { type: Number},
-     imageUrl: { type: String, required: true },
-    },
-
-    { timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" } }
-);
 
 
 app.get('/api/health', (req,res) => {
