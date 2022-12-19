@@ -29,12 +29,9 @@ app.get('/api/health', (req,res) => {
 });
 app.use("/api/admin", admin);
 
-app.use((req,res,next)=>{
-    res.status(404);
-    res.send({
-        error: 'Not found'
-    });
-});
+app.use((req,res,next)=>
+    res.status(404).send("Not found!")
+);
 
 app.use((err,req,res,next)=>{
     res.status(500);
