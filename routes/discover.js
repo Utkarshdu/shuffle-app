@@ -30,5 +30,16 @@ route.get("/like/:imageId", async (req, res, next) => {
 });
 
 route.get("/discover/:category", async(req,res,next)=>{
+   try{ const category=req.params.category;
+
+    const galleryDetail = await GalleryModel.find({
+        category: { $in: [category] }
+    })
+    .limit(4);
+    res.json(galleryDetail);
+} catch (error) {
+    console.log(error);
+    next(error);
+}
 
 });
