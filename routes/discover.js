@@ -21,7 +21,8 @@ route.get("/like/:imageId", async (req, res, next) => {
             { _id: imageId },
             { $set: { likeNumber: likesNumber } }
         );
-
+          
+        res.send("favorite image updated ");
         
     } catch (error) {
         console.log(error);
@@ -29,10 +30,11 @@ route.get("/like/:imageId", async (req, res, next) => {
     }
 });
 
-route.get("/discover/:category", async(req,res,next)=>{
+route.get("/discover/:category/:shuffle-images", async(req,res,next)=>{
    try{ 
     const category=req.params.category;
     const filterByLikes=req.query.filterByLikes;
+    const shuffleImages=req.params.shuffleImages;
     var filter={};
     if(filterByLikes)
     {
@@ -50,3 +52,4 @@ route.get("/discover/:category", async(req,res,next)=>{
 }
 
 });
+module.exports=route;
