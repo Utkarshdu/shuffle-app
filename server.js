@@ -1,7 +1,6 @@
 const express = require("express");
 const app= express();
 const mongoose= require("mongoose");
-
 const admin=require("./routes/admin");
 
 const db= 'mongodb+srv://utk123:Sz5XnB2CvOybszy6@cluster0.rqrlqgg.mongodb.net/shuffle-app-db?retryWrites=true&w=majority'
@@ -18,11 +17,29 @@ mongoose.connect(db, {
     console.log(`no connection`);
 });
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.get('/api/health', (req,res) => {
     res.send({
         time: new Date(),
 
+    });
+});
+app.use("/api/admin", admin);
+
+app.use((req,res,next)=>{
+    res.status(404);
+    res.send({
+        error: 'Not found'
+    });
+});
+
+app.use((err,req,res,next)=>{
+    res.status(500);
+    res.send({
+        error: 'Something went wrong'
     });
 });
 
